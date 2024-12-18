@@ -88,10 +88,6 @@ public class UserService {
 
     }
 
-
-    
-
-
     // Retrieve a user by ID from the list
     public User getUserById(int id) {
         Optional<User> user = UserStorage.users.stream()
