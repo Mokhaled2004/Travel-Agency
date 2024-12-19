@@ -1,5 +1,7 @@
 package com.sda.travelagency.model;
 
+import java.util.List;
+
 public abstract class NotificationTemplate {
     protected int templateId;
     protected String language;

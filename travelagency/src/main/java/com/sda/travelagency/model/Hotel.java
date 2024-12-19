@@ -1,8 +1,6 @@
 package com.sda.travelagency.model;
 
 public class Hotel {
-<<<<<<< HEAD
-=======
     private Long id;
     private String name;
     private String location;
@@ -19,12 +17,6 @@ public class Hotel {
         this.email = email;
     }
 
-    public Long getId() {}
-    public String getName() {}
-    public String getLocation() {}
-    public String getAddress() {}
-    public String getPhone() {}
-    public String getEmail() {}
->>>>>>> 375c186a4da1c3ddbba797832b912d8bf110bbbd
+
 
 }
