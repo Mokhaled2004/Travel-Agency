@@ -31,6 +31,17 @@ public class UserController {
         
     }
 
+    @PostMapping("/signIn")
+    public ResponseEntity<String> signIn(@RequestBody User user) {
+        String result = userService.signIn(user);
+        if ("Signed In Successfully".equals(result)) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(result); 
+        }
+    }
+
+
 
     @GetMapping("/get/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {

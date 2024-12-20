@@ -12,57 +12,70 @@ import com.sda.travelagency.model.User;
 import com.sda.travelagency.util.UserStorage;
 
 @Service
-public class UserService {
+public class UserService implements IAuthenticate {
 
     private static final String FILE_PATH = "users.json";
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public UserService() {
-        loadUsersFromJson(); 
+        loadUsersFromJson();
     }
 
     // Add a user to the list
     public boolean addUser(User user) {
-        
         UserStorage.users.add(user);
         saveUsersToJson();
         return true;
     }
 
+    @Override
     public boolean verifyEmail(User user) {
         String email = user.getEmail();
-        if (email.contains("@") && email.contains(".")) {
-            return true;
-        } else {
-            return false;
-        }
+        return email.contains("@") && email.contains(".");
     }
 
+    @Override
     public boolean verifyPassword(User user) {
         String password = user.getPassword();
-        if( password.length() < 5) {
-            return false;
-        } else {
-            return true;
-        }
+        return password.length() >= 5;
     }
 
     public String registerUser(User user) {
+
+        int lastUserId = getLastUserId();
+
+        user.setId(lastUserId + 1);
+
         if (getUserById(user.getId()) != null) {
-            
-            return "Id missing"; // User already exists
-        }  
-        if (!verifyPassword(user)) {
-            return "Invalid Password"; // Password is invalid
-        } 
-        if (!verifyEmail(user)) {
-            return "Invalid Email"; // Email is invalid
+            return "Id missing"; 
         }
-        else {
-        addUser(user);
-        return "Added Successfully"; // User added successfully
+        if (!verifyPassword(user)) {
+            return "Invalid Password"; 
+        }
+        if (!verifyEmail(user)) {
+            return "Invalid Email"; 
+        } else {
+            addUser(user);
+            return "Added Successfully";
         }
     }
+
+    public String signIn(User user) {
+
+        for (User existingUser : UserStorage.users) {
+            if (existingUser.getEmail().equals(user.getEmail())) {
+
+                if (existingUser.getPassword().equals(user.getPassword())) {
+                    return "Signed In Successfully"; 
+                } else {
+                    return "Incorrect Password"; 
+                }
+            }
+        }
+        return "Incorrect Email"; 
+    }
+    
+    
 
     public User updateUser(int id, User user) {
         User existingUser = getUserById(id);
@@ -85,22 +98,30 @@ public class UserService {
             saveUsersToJson();
             return user;
         }
-
     }
 
-    // Retrieve a user by ID from the list
     public User getUserById(int id) {
         Optional<User> user = UserStorage.users.stream()
-        .filter(u -> u.getId() == id)
-        .findFirst();
+            .filter(u -> u.getId() == id)
+            .findFirst();
         return user.orElse(null);
     }
 
-    public List <User> getAllUsers() {
+    public List<User> getAllUsers() {
         return UserStorage.users;
     }
 
-    // Save the list of users to the JSON file
+    private int getLastUserId() {
+        if (UserStorage.users.isEmpty()) {
+            return 0; 
+        }
+
+        return UserStorage.users.stream()
+            .mapToInt(User::getId)
+            .max()
+            .orElse(0); 
+    }
+
     private void saveUsersToJson() {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), UserStorage.users);
@@ -109,7 +130,6 @@ public class UserService {
         }
     }
 
-    // Load users from the JSON file into the list
     private void loadUsersFromJson() {
         try {
             File file = new File(FILE_PATH);
@@ -123,4 +143,6 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
+
 }
