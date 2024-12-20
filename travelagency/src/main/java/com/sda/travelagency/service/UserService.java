@@ -1,32 +1,74 @@
 package com.sda.travelagency.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.travelagency.model.User;
 import com.sda.travelagency.util.UserStorage;
+import static com.sda.travelagency.util.UserStorage.saveUsers;
+import static com.sda.travelagency.util.UserStorage.users;
 
 @Service
 public class UserService implements IAuthenticate {
 
-    private static final String FILE_PATH = "users.json";
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    public String registerUser(User user) {
+        int lastUserId = getLastUserId();
 
-    public UserService() {
-        loadUsersFromJson();
+        user.setId(lastUserId + 1);
+
+        if (UserStorage.getUserById(user.getId()) != null) {
+            return "Id missing"; 
+        }
+        if (!verifyPassword(user)) {
+            return "Invalid Password"; 
+        }
+        if (!verifyEmail(user)) {
+            return "Invalid Email"; 
+        } else {
+            UserStorage.addUser(user);  
+            return "Added Successfully";
+        }
     }
 
-    // Add a user to the list
-    public boolean addUser(User user) {
-        UserStorage.users.add(user);
-        saveUsersToJson();
-        return true;
+    public String signIn(User user) {
+        User existingUser = UserStorage.getUserByEmail(user.getEmail());
+        if (existingUser == null) {
+            return "Incorrect Email"; 
+        }
+        if (!existingUser.getPassword().equals(user.getPassword())) {
+            return "Incorrect Password"; 
+        }
+        return "Signed In Successfully"; 
     }
+
+    public User updateUserById(int id, User user) {
+        User existingUser = UserStorage.getUserById(id);
+        if (existingUser == null) {
+            return null; 
+        }
+
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        UserStorage.saveUsers(); 
+        return existingUser;
+    }
+
+    public String viewProfileBy(int id) {
+        User existingUser = UserStorage.getUserById(id);
+        if (existingUser == null) {
+            return "User not found"; 
+        }
+        
+        return String.format(
+            "Name: %s\nEmail: %s\nPassword: %s", 
+            existingUser.getName(), 
+            existingUser.getEmail(), 
+            existingUser.getPassword()
+        );
+    }
+    
 
     @Override
     public boolean verifyEmail(User user) {
@@ -40,109 +82,26 @@ public class UserService implements IAuthenticate {
         return password.length() >= 5;
     }
 
-    public String registerUser(User user) {
-
-        int lastUserId = getLastUserId();
-
-        user.setId(lastUserId + 1);
-
-        if (getUserById(user.getId()) != null) {
-            return "Id missing"; 
-        }
-        if (!verifyPassword(user)) {
-            return "Invalid Password"; 
-        }
-        if (!verifyEmail(user)) {
-            return "Invalid Email"; 
-        } else {
-            addUser(user);
-            return "Added Successfully";
-        }
+    private int getLastUserId() {
+        return UserStorage.getLastUserId();  
     }
 
-    public String signIn(User user) {
-
-        for (User existingUser : UserStorage.users) {
-            if (existingUser.getEmail().equals(user.getEmail())) {
-
-                if (existingUser.getPassword().equals(user.getPassword())) {
-                    return "Signed In Successfully"; 
-                } else {
-                    return "Incorrect Password"; 
-                }
-            }
-        }
-        return "Incorrect Email"; 
-    }
-    
-    
-
-    public User updateUser(int id, User user) {
-        User existingUser = getUserById(id);
-        if (existingUser == null) {
-            return null;
-        }
-        existingUser.setName(user.getName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        saveUsersToJson();
-        return existingUser;
-    }
-
-    public User deleteUser(int id) {
+    public  User TerminateUser(int id) {
         User user = getUserById(id);
-        if (user == null) {
-            return null;
-        } else {
-            UserStorage.users.remove(user);
-            saveUsersToJson();
-            return user;
+        if (user != null) {
+            users.remove(user);
+            saveUsers(); 
         }
+        return user;
     }
+
 
     public User getUserById(int id) {
-        Optional<User> user = UserStorage.users.stream()
-            .filter(u -> u.getId() == id)
-            .findFirst();
-        return user.orElse(null);
+        return UserStorage.getUserById(id); 
     }
+
 
     public List<User> getAllUsers() {
-        return UserStorage.users;
+        return UserStorage.getAllUsers(); 
     }
-
-    private int getLastUserId() {
-        if (UserStorage.users.isEmpty()) {
-            return 0; 
-        }
-
-        return UserStorage.users.stream()
-            .mapToInt(User::getId)
-            .max()
-            .orElse(0); 
-    }
-
-    private void saveUsersToJson() {
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), UserStorage.users);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadUsersFromJson() {
-        try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                List<User> users = objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
-                if (users != null) {
-                    UserStorage.users = users;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

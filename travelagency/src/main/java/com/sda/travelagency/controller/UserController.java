@@ -52,6 +52,16 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/viewProfile/{id}")
+    public ResponseEntity<String> viewProfile(@PathVariable int id) {
+        String profileDetails = userService.viewProfileBy(id);
+        if ("User not found".equals(profileDetails)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(profileDetails);
+        }
+        return ResponseEntity.ok(profileDetails);
+    }
+    
+
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -65,7 +75,7 @@ public class UserController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
+        User updatedUser = userService.updateUserById(id, user);
         if (updatedUser == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -76,7 +86,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        User user = userService.deleteUser(id);
+        User user = userService.TerminateUser(id);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

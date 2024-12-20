@@ -1,8 +1,11 @@
-[
-  {
-    "id": 0,
-    "name": "mokhaled",
-    "email": "mokh@gmail.com",
-    "password": "12dt4"
-  }
-]
+[ {
+  "id" : 0,
+  "name" : "mokhaled",
+  "email" : "mokh@gmail.com",
+  "password" : "12dt4"
+}, {
+  "id" : 1,
+  "name" : "rorie",
+  "email" : "mokh@gmail.com",
+  "password" : "12dt4"
+} ]

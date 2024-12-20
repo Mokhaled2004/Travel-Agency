@@ -14,13 +14,11 @@ public class UserStorage {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     public static List<User> users = loadUsers();
 
-    // Add a user and save to file
     public static void addUser(User user) {
         users.add(user);
         saveUsers();
     }
 
-    // Retrieve a user by ID
     public static User getUserById(int id) {
         return users.stream()
                     .filter(user -> user.getId() == id)
@@ -28,7 +26,14 @@ public class UserStorage {
                     .orElse(null);
     }
 
-    // Load users from JSON file
+    public static User getUserByEmail(String email) {
+        return users.stream()
+                    .filter(user -> user.getEmail().equals(email))
+                    .findFirst()
+                    .orElse(null);
+    }
+
+
     private static List<User> loadUsers() {
         try {
             File file = new File(FILE_PATH);
@@ -42,12 +47,27 @@ public class UserStorage {
         }
     }
 
-    // Save users to JSON file
-    private static void saveUsers() {
+    public static void saveUsers() {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), users);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static List<User> getAllUsers() {
+        return new ArrayList<>(users); 
+    }
+
+
+    public static int getLastUserId() {
+        if (users.isEmpty()) {
+            return 0; 
+        }
+        return users.stream()
+                    .mapToInt(User::getId)
+                    .max()
+                    .orElse(0); 
     }
 }

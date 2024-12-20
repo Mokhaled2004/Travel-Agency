@@ -1,4 +1,4 @@
-package com.sda.travelagency.controller;
+/*package com.sda.travelagency.controller;
 
 import java.util.List;
 
@@ -79,4 +79,4 @@ public class EventController {
         return ResponseEntity.ok("Event deleted successfully");
     }
 }
-
+*/

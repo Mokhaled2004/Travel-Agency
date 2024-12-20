@@ -1,4 +1,4 @@
-package com.sda.travelagency.controller;
+/*package com.sda.travelagency.controller;
 
 import java.util.List;
 
@@ -98,3 +98,5 @@ public class HotelController {
         return ResponseEntity.ok(hotels);
     }
 }
+
+*/

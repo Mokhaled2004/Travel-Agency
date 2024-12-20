@@ -1,4 +1,4 @@
-package com.sda.travelagency.service;
+/*package com.sda.travelagency.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.travelagency.model.Event;
 import com.sda.travelagency.model.User;
 import com.sda.travelagency.util.EventStorage;
-import com.sda.travelagency.util.UserStorage;
+import com.sda.travelagency.util.UserStorage; 
 
 @Service
 public class EventService {
@@ -60,7 +60,7 @@ public class EventService {
     // Retrieve an event by ID
     public Event getEventById(int id) {
         Optional<Event> event = EventStorage.events.stream()
-                .filter(e -> e.getName() == name)
+                .filter(e -> e.getId()() == id)
                 .findFirst();
         return event.orElse(null);
     }
@@ -95,3 +95,4 @@ public class EventService {
         }
     }
 }
+*/
