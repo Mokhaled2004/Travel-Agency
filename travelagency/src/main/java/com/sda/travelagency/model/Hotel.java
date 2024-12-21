@@ -1,14 +1,14 @@
 package com.sda.travelagency.model;
 
 public class Hotel {
-    private Long id;
+    private int id;
     private String name;
     private String location;
     private String phone;
     private String email;
     private double rating;
 
-    public Hotel(Long id, String name, String location, String phone, String email ,double rating) {
+    public Hotel(int id, String name, String location, String phone, String email ,double rating) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -18,11 +18,11 @@ public class Hotel {
     }
 
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -50,19 +50,19 @@ public class Hotel {
         this.rating = rating;
     }
 
-    public String getemail() {
+    public String getEmail() {
             return email;
         }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
             this.email = email;
         }
-     
-    public String getphone() {
+    
+    public String getPhone() {
         return phone;
     }
 
-    public void setphone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

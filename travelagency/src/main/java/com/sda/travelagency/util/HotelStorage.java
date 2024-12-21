@@ -10,48 +10,45 @@ import com.sda.travelagency.model.Hotel;
 
 public class HotelStorage {
 
-    private static final String FILE_PATH = "hotels.json";
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-    public static List<Hotel> hotels = loadHotels();
+    public static final String FILE_PATH = "hotels.json";
+    public static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final List<Hotel> hotels = loadHotels();
 
-    // Add a hotel and save to file
     public static void addHotel(Hotel hotel) {
         hotels.add(hotel);
         saveHotels();
     }
 
-    // Retrieve a hotel by ID
     public static Hotel getHotelById(long id) {
         return hotels.stream()
-                     .filter(hotel -> hotel.getId() == id)
-                     .findFirst()
-                     .orElse(null);
+                    .filter(hotel -> hotel.getId() == id)
+                    .findFirst()
+                    .orElse(null);
     }
-
 
     public static Hotel getHotelByName(String name) {
         return hotels.stream()
-                     .filter(hotel -> hotel.getName().equalsIgnoreCase(name))
-                     .findFirst()
-                     .orElse(null);
+                    .filter(hotel -> (hotel.getName() == null ? name == null : hotel.getName().equals(name)))
+                    .findFirst()
+                    .orElse(null);
     }
 
-    public static Hotel getHotelByLocation(String location) {
+
+    public static List<Hotel> getAllHotels() {
+        return new ArrayList<>(hotels);
+    }
+
+    public static int getLastHotelId() {
+        if (hotels.isEmpty()) {
+            return 0;
+        }
         return hotels.stream()
-                     .filter(hotel -> hotel.getLocation().equalsIgnoreCase(location))
-                     .findFirst()
-                     .orElse(null);
+                    .mapToInt(hotel -> (int) hotel.getId())
+                    .max()
+                    .orElse(0);
     }
 
-    public static Hotel getHotelByRating(double rating) {
-        return hotels.stream()
-                     .filter(hotel -> hotel.getRating() == rating)
-                     .findFirst()
-                     .orElse(null);
-    }
-
-    // Load hotels from JSON file
-    private static List<Hotel> loadHotels() {
+    public static List<Hotel> loadHotels() {
         try {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
@@ -64,12 +61,13 @@ public class HotelStorage {
         }
     }
 
-    // Save hotels to JSON file
-    private static void saveHotels() {
+    public static void saveHotels() {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(FILE_PATH), hotels);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    
 }
