@@ -1,4 +1,4 @@
-/*package com.sda.travelagency.controller;
+package com.sda.travelagency.controller;
 
 import java.util.List;
 
@@ -24,59 +24,61 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    // Add a new event
-    @PostMapping("/add")
+    @PostMapping("/addEvent")
     public ResponseEntity<String> addEvent(@RequestBody Event event) {
-        eventService.addEvent(event);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Event added successfully");
+        String result = eventService.addEvent(event);
+        if ("Event added successfully".equals(result)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
-    // Get an event by id
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable int id) {
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        Event event = events.stream()
-                            .filter(e -> e.getId().equalsIgnoreCase(id))
-                            .findFirst()
-                            .orElse(null);
+        if (events.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(events);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Event> updateEvent(@PathVariable long id, @RequestBody Event event) {
+        Event updatedEvent = eventService.updateEvent(id, event);
+        if (updatedEvent == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(updatedEvent);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteEvent(@PathVariable long id) {
+        Event event = eventService.getEventById(id);
+        if (event == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        }
+        boolean deleted = eventService.deleteEvent(event);
+        if (deleted) {
+            return ResponseEntity.ok("Event deleted successfully");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete event");
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable long id) {
+        Event event = eventService.getEventById(id);
         if (event == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(event);
     }
 
-    // Update an event by id
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Event> updateEventById(@PathVariable int id, @RequestBody Event updatedEvent) {
-        List<Event> events = eventService.getAllEvents();
-        Event existingEvent = events.stream()
-                                    .filter(e -> e.getId().equalsIgnoreCase(id))
-                                    .findFirst()
-                                    .orElse(null);
-
-        if (existingEvent == null) {
+    @GetMapping("/searchByName/{name}")
+    public ResponseEntity<Event> searchEventByName(@PathVariable String name) {
+        Event event = eventService.searchEventByName(name);
+        if (event == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-
-        Event updated = eventService.updateEvent(existingEvent.getId(), updatedEvent);
-        return ResponseEntity.ok(updated);
-    }
-
-    // Delete an event by id
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEventById(@PathVariable int id) {
-        List<Event> events = eventService.getAllEvents();
-        Event event = events.stream()
-                            .filter(e -> e.getId().equalsIgnoreCase(id))
-                            .findFirst()
-                            .orElse(null);
-
-        if (event == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-        }
-
-        eventService.deleteEvent(event.getId());
-        return ResponseEntity.ok("Event deleted successfully");
+        return ResponseEntity.ok(event);
     }
 }
-*/

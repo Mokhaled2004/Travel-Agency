@@ -71,8 +71,8 @@ public int getTicketPrice() {
 @Override
     public String toString() {
         return "Event{" +
-                "name='" + name + '\'' +
-                ", id=" + id + '\'' +
+                "id='" + id + '\'' +
+                ", name=" + name + '\'' +
                 ", address=" + address + '\'' +
                 ", date=" + date + '\'' +
                 ", available tickets=" + AvailableTickets + '\'' +
