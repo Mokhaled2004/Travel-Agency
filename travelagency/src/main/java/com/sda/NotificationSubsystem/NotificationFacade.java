@@ -24,13 +24,10 @@ public class NotificationFacade {
         // Prepare the command to send the popup notification (e.g., reset password or booking)
         Command popupCommand = new ForgetPasswordCommand(
                 new SMSTemplate(),
-<<<<<<< HEAD
                 new EmailTemplate()
-=======
                 new EmailTemplate(),
                 new PopupTemplate(),
                 placeholders
->>>>>>> 48e596a5f4586fec4c37d52bcf8ba19fa7e4daec
         );
 
         // Add the command to the invoker's queue
@@ -38,6 +35,23 @@ public class NotificationFacade {
 
         // Execute the command (send notification)
         notificationInvoker.execute();
+    }
+
+    public String sendPasswordResetNotification(@RequestBody List<String> placeholders) {
+        // Prepare the command to send a password reset notification
+        Command resetPasswordCommand = new ForgetPasswordCommand(
+                new SMSTemplate(),
+                new EmailTemplate(),
+                placeholders
+        );
+
+        // Add the command to the invoker's queue
+        notificationInvoker.addCommand(resetPasswordCommand);
+
+        // Execute the command (send notification)
+        notificationInvoker.execute();
+
+        return "Password reset notification sent successfully.";
     }
 
     // Method to get statistics
