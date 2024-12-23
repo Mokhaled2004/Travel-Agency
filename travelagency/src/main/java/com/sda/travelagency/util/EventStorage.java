@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.travelagency.model.Event;
 
+
 public class EventStorage {
 
     public static final String FILE_PATH = "events.json";
@@ -45,7 +46,7 @@ public class EventStorage {
             return 0;
         }
         return events.stream()
-                    .mapToInt(event -> (int) event.getId())
+                    .mapToInt(Event::getId)
                     .max()
                     .orElse(0);
     }
@@ -70,4 +71,6 @@ public class EventStorage {
             e.printStackTrace();
         }
     }
+
+
 }
