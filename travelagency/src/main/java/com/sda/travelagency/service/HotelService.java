@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sda.NotificationSubsystem.NotificationFacade;
 import com.sda.travelagency.model.Hotel;
 import com.sda.travelagency.util.HotelStorage;
+
 
 
 
@@ -14,9 +16,9 @@ import com.sda.travelagency.util.HotelStorage;
 public class HotelService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    NotificationFacade notificationFacade = new NotificationFacade();
 
     public HotelService() {
-        // Ensure hotels are loaded at initialization
         HotelStorage.loadHotels();
     }
 
@@ -83,8 +85,8 @@ public class HotelService {
     
         List<String> placeholders = List.of(hotel.getName(), roomTypeString);
     
-        // Send a popup notification
         
+        notificationFacade.sendPopupNotification(placeholders);
     
         return hotel.bookRoom(roomTypeString);
     }
