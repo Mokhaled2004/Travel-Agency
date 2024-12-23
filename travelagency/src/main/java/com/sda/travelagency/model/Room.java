@@ -6,6 +6,7 @@ public abstract class Room {
     protected double price;
     protected boolean available;
 
+
     public Room(Long id, double price) {
         this.id = id;
         this.price = price;
