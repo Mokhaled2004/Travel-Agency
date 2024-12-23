@@ -5,7 +5,6 @@ import java.util.Queue;
 public class NotificationInvoker implements Publisher {
 
     private Queue<Command> notificationsQueue = new LinkedList<>();
-    private Subscriber[] subscribers;
 
     public NotificationInvoker(Subscriber[] subscribers) {
         this.subscribers = subscribers;

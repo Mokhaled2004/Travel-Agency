@@ -2,34 +2,37 @@ package com.sda.NotificationSubsystem;
 
 public class NotificationFacade {
 
-    private NotificationInvoker invoker;
+    private NotificationInvoker notificationInvoker;
+    private NotificationStatisticManager statsManager;
 
-    public NotificationFacade(NotificationInvoker invoker) {
-        this.invoker = invoker;
+    public NotificationFacade(NotificationInvoker invoker, NotificationStatisticManager statsManager) {
+        this.notificationInvoker = invoker;
+        this.statsManager = statsManager;
     }
 
-    // Trigger the password reset notification
-    public void sendPasswordResetNotification(List<String> placeholders) {
-        // Create the password reset command with the appropriate templates
-        Command passwordResetCommand = new PasswordResetCommand(
+    // Method to send Popup Notification
+    public void sendPopupNotification(List<String> placeholders) {
+        // Prepare the command to send the popup notification (e.g., reset password or booking)
+        Command popupCommand = new ForgetPasswordCommand(
                 new SMSTemplate(),
                 new EmailTemplate(),
-                new PopupTemplate()
+                new PopupTemplate(),
+                placeholders
         );
-        invoker.addCommand(passwordResetCommand);
-        invoker.execute();
+
+        // Add the command to the invoker's queue
+        notificationInvoker.addCommand(popupCommand);
+
+        // Execute the command (send notification)
+        notificationInvoker.execute();
     }
 
-    // Trigger a general notification (could be booking, offer, etc.)
-    public void sendGeneralNotification(List<String> placeholders) {
-        // Create a general send notification command
-        Command sendNotificationCommand = new SendNotificationCommand(
-                new SMSTemplate(),
-                new EmailTemplate(),
-                new PopupTemplate()
-        );
-        invoker.addCommand(sendNotificationCommand);
-        invoker.execute();
+    // Method to get statistics
+    public void displayStatistics() {
+        System.out.println("Successful Notifications: " + statsManager.getSuccessfulNotification());
+        System.out.println("Failed Notifications: " + statsManager.getFailedNotification());
+        System.out.println("Most Used Templates: " + statsManager.getMostUsedTemplate());
     }
 }
+
 
