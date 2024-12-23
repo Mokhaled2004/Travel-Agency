@@ -1,13 +1,13 @@
-package com.sda.travelagency.model.Event;
+package com.sda.travelagency.model.Events;
 
 public abstract class Event {
 
-    private int id ;
-    private String name ;
-    private String address ;
-    private String date ;
-    private boolean AvailableTickets ;
-    private int TicketPrice ;
+    protected int id ;
+    protected String name ;
+    protected String address ;
+    protected String date ;
+    protected boolean AvailableTickets ;
+    protected int TicketPrice ;
 
     public Event () {}
 
@@ -68,8 +68,21 @@ public abstract class Event {
         return TicketPrice;
     }
 
+
+
+
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", name=" + name + '\'' +
+                ", address=" + address + '\'' +
+                ", date=" + date + '\'' +
+                ", available tickets=" + AvailableTickets + '\'' +
+                ", ticket price=" + TicketPrice + '}' ;
+    }
+
+
 
 
 

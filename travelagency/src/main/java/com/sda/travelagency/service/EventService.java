@@ -4,11 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-
 import com.sda.travelagency.model.Event;
 import com.sda.travelagency.util.EventStorage;
-import static com.sda.travelagency.util.EventStorage.saveEvents;
-import static com.sda.travelagency.util.EventStorage.events;
 
 
 
@@ -77,4 +74,6 @@ public class EventService {
     private int getLastEventId() {
         return EventStorage.getLastEventId();  
     }
+
+
 }

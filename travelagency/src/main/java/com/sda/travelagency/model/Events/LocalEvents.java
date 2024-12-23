@@ -1,4 +1,4 @@
-package com.sda.travelagency.model.Event;
+package com.sda.travelagency.model.Events;
 
 public class LocalEvents extends Event {
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sda.travelagency.model.Events.HotelEvents;
 import com.sda.travelagency.model.Hotel;
 import com.sda.travelagency.util.HotelStorage;
 
@@ -81,5 +82,9 @@ public class HotelService {
 
     public List<Hotel> getAllHotels() {
         return HotelStorage.getAllHotels();
+    }
+
+    public List<HotelEvents> getEventsByHotelName(String name) {
+        return HotelStorage.getEventsByHotelName(name);
     }
 }

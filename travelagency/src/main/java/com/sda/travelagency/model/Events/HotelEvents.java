@@ -1,4 +1,4 @@
-package com.sda.travelagency.model.Event;
+package com.sda.travelagency.model.Events;
 
 public class HotelEvents extends Event {
 
@@ -7,7 +7,7 @@ public class HotelEvents extends Event {
     public HotelEvents () {}
 
     public HotelEvents (int id, String name, String address, String date, boolean AvailableTickets, int TicketPrice, String hotelName) {
-        super(id, name, address, date, availableTickets, ticketPrice);
+        super(id, name, address, date, AvailableTickets, TicketPrice);
         this.hotelName = hotelName;
     }
 

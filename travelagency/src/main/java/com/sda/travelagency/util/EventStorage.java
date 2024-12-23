@@ -11,31 +11,29 @@ import com.sda.travelagency.model.Event;
 
 public class EventStorage {
 
-    public static final String FILE_PATH = "events.json";
+public static final String FILE_PATH = "events.json";
     public static final ObjectMapper objectMapper = new ObjectMapper();
     public static final List<Event> events = loadEvents();
 
-
-    public static void addEvent(Event event) {
-        events.add(event);
+    public static void addEvent(Event Event) {
+        events.add(Event);
         saveEvents();
     }
 
-   
     public static Event getEventById(long id) {
         return events.stream()
-                    .filter(event -> event.getId() == id)
+                    .filter(Event -> Event.getId() == id)
                     .findFirst()
                     .orElse(null);
     }
-
 
     public static Event getEventByName(String name) {
         return events.stream()
-                    .filter(event -> (event.getName() == null ? name == null : event.getName().equals(name)))
+                    .filter(Event -> (Event.getName() == null ? name == null : Event.getName().equals(name)))
                     .findFirst()
                     .orElse(null);
     }
+
 
     public static List<Event> getAllEvents() {
         return new ArrayList<>(events);
@@ -46,7 +44,7 @@ public class EventStorage {
             return 0;
         }
         return events.stream()
-                    .mapToInt(Event::getId)
+                    .mapToInt(Event -> (int) Event.getId())
                     .max()
                     .orElse(0);
     }
@@ -70,6 +68,15 @@ public class EventStorage {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Event getEventsByEventName(String name) {
+
+        Event Event = getEventByName(name);
+        if (Event == null) {
+            return null;
+        }
+        return Event;
     }
 
 
