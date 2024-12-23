@@ -1,11 +1,17 @@
 package com.sda.travelagency.model.Events;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LocalEvents extends Event {
 
+    @JsonProperty("localGuideName")
     private String localGuideName;
+
+    @JsonProperty("isOutdoor")
     private boolean isOutdoor;
 
-    public LocalEvents () {}
+    // No-args constructor required for Jackson
+    public LocalEvents() {}
 
     public LocalEvents(int id, String name, String address, String date, boolean availableTickets, int ticketPrice,
                        String localGuideName, boolean isOutdoor) {
@@ -26,23 +32,21 @@ public class LocalEvents extends Event {
         return isOutdoor;
     }
 
-    public void setOutdoor(boolean outdoor) {
-        isOutdoor = outdoor;
+    public void setOutdoor(boolean isOutdoor) {
+        this.isOutdoor = isOutdoor;
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "id='" + id + '\'' +
-                ", name=" + name + '\'' +
-                ", address=" + address + '\'' +
-                ", date=" + date + '\'' +
-                ", available tickets=" + AvailableTickets + '\'' +
+        return "LocalEvents{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", address='" + getAddress() + '\'' +
+                ", date='" + getDate() + '\'' +
+                ", availableTickets=" + isAvailableTickets() +
                 ", localGuideName='" + localGuideName + '\'' +
                 ", isOutdoor=" + isOutdoor +
-                ", ticket price=" + TicketPrice + '}' ;
+                ", ticketPrice=" + getTicketPrice() +
+                '}';
     }
-
-
-
 }

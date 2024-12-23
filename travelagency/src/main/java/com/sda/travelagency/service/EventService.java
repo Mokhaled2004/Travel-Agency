@@ -5,15 +5,17 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sda.travelagency.model.Event;
+import com.sda.travelagency.model.Events.LocalEvents;
 import com.sda.travelagency.util.EventStorage;
+import com.sda.travelagency.util.LocalEventStorage;
 
 
 
 @Service
-public class EventService {
+public class EventService implements EventFetchStrategy {
 
     public EventService() {
-        
+        LocalEventStorage.loadLocalEvents();
         EventStorage.loadEvents();
     }
 
@@ -46,6 +48,7 @@ public class EventService {
         existingEvent.setDate(event.getDate());
         existingEvent.setAvailableTickets(event.isAvailableTickets());
         existingEvent.setTicketPrice(event.getTicketPrice());
+        existingEvent.setHotelName(event.getHotelName());
 
         EventStorage.saveEvents();
         return existingEvent;
@@ -74,6 +77,38 @@ public class EventService {
     private int getLastEventId() {
         return EventStorage.getLastEventId();  
     }
+
+    public List<Event> getEventsByHotelName(String hotelName) {
+        return EventStorage.getEventsByHotelName(hotelName);
+    }
+
+    public Event getEventByName(String name) {
+        return EventStorage.getEventByName(name);
+    }
+
+    public List<LocalEvents> getAllLocalEvents() {
+        return LocalEventStorage.getAllLocalEvents();
+    }
+
+    public LocalEvents getLocalEventById(long id) {
+        return LocalEventStorage.getLocalEventById(id);
+    }
+
+    @Override
+    public List<Event> fetchEvents() {
+        List<Event> allEvents = EventStorage.getAllEvents(); // Fetch all general events
+        List<LocalEvents> allLocalEvents = LocalEventStorage.getAllLocalEvents(); // Fetch all local events
+    
+        // Add all local events to the general events list
+        allEvents.addAll((List<? extends Event>) (List<?>) allLocalEvents);
+    
+        return allEvents;
+    }
+    
+    
+
+
+    
 
 
 }
