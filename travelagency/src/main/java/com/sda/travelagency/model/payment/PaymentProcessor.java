@@ -1,3 +1,5 @@
+package com.sda.travelagency.model.payment;
+
 public class PaymentProcessor {
     private PaymentStrategy paymentStrategy;
 

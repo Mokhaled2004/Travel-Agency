@@ -1,3 +1,5 @@
+package com.sda.travelagency.model.payment;
+
 public class CreditCardPayment implements PaymentStrategy {
     private String cardNumber;
     private String cardHolderName;
