@@ -1,5 +1,6 @@
 package com.sda.travelagency.model;
 import java.util.List;
+import com.sda.travelagency.model.Room.*;
 
 public class Hotel {
     private int id;

@@ -80,28 +80,34 @@ public class HotelService {
 
 
 
-public boolean bookHotelRoom(int hotelId, String roomTypeString) {
-
-    Room roomType;
-    Hotel hotel = HotelStorage.getHotelById(hotelId);
-    if (hotel == null) {
-        return false;
-    }
-
+    public boolean bookHotelRoom(int hotelId, String roomTypeString) {
+        // Ensure the `RoomType` enum is accessed correctly
+        Room.RoomType roomType;
+        Hotel hotel = HotelStorage.getHotelById(hotelId);
     
-    try {
-        roomType = Room.RoomType.valueOf(roomTypeString.toLowerCase()); // Use Room.RoomType for nested enums
-    } catch (IllegalArgumentException e) {
-        // Invalid room type string
-        return false;
+        if (hotel == null) {
+            return false; // Hotel not found
+        }
+    
+        try {
+            // Convert the input string to uppercase to match the enum constants
+            roomType = Room.RoomType.valueOf(roomTypeString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            // Invalid room type string
+            return false;
+        }
+    
+        // Prepare placeholders for notifications
+        List<String> placeholders = List.of(hotel.getName(), roomType.name());
+    
+        // Send a popup notification
+        NotificationFacade notificationFacade = new NotificationFacade();
+        notificationFacade.sendPopupNotification(placeholders);
+    
+        // Attempt to book the room
+        return hotel.bookRoom(roomType);
     }
-
-    List<String> placeholders = List.of(hotel.getName(), roomType.name());
-
-    NotificationFacade notificationFacade = new NotificationFacade();
-    notificationFacade.sendPopupNotification(placeholders);
-    return hotel.bookRoom(roomType);
-}
+    
 
 
 

@@ -1,11 +1,9 @@
 package com.sda.travelagency.model;
-enum RoomType {
-    singleroom,
-    doubleroom,
-    tripleroom
-}
 
 public class Room {
+    public enum RoomType {
+        SINGLE, DOUBLE, SUITE; // Enum values in uppercase
+    }
     protected Long id;
     protected double price;
     protected boolean available;
