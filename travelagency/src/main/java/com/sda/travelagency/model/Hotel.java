@@ -1,8 +1,6 @@
 package com.sda.travelagency.model;
 import java.util.List;
 
-import com.sda.travelagency.model.Events.HotelEvents;
-
 public class Hotel {
     private int id;
     private String name;
@@ -10,7 +8,6 @@ public class Hotel {
     private String phone;
     private String email;
     private double rating;
-    private List<HotelEvents> events;
     private List<Room> rooms;
 
     public Hotel(int id, String name, String location, String phone, String email ,double rating) {
@@ -83,9 +80,5 @@ public class Hotel {
                 '}';
     }
 
-
-    public List<HotelEvents> getEvents() {
-        return events;
-    }
 
 }

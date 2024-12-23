@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sda.travelagency.model.Event;
-import com.sda.travelagency.model.Events.LocalEvents;
 import com.sda.travelagency.service.EventService;
-
-
 
 @RestController
 @RequestMapping("/EventController")
@@ -84,52 +81,4 @@ public class EventController {
         }
         return ResponseEntity.ok(event);
     }
-
-    @GetMapping("/getByHotelName/{hotelName}")
-    public ResponseEntity<List<Event>> getEventsByHotelName(@PathVariable String hotelName) {
-        List<Event> events = eventService.getEventsByHotelName(hotelName);
-        if (events.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(events);
-    }
-    
-    @GetMapping("/getByName/{name}")
-    public ResponseEntity<Event> getEventByName(@PathVariable String name) {
-        Event event = eventService.getEventByName(name);
-        if (event == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(event);
-    }
-    
-
-    @GetMapping("/getAllLocalEvents")
-    public ResponseEntity<List<LocalEvents>> getAllLocalEvents() {
-        List<LocalEvents> localEvents = eventService.getAllLocalEvents();
-        if (localEvents.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(localEvents);
-    }
-
-    @GetMapping("/getLocalEventById/{id}")
-    public ResponseEntity<LocalEvents> getLocalEventById(@PathVariable long id) {
-        LocalEvents localEvent = eventService.getLocalEventById(id);
-        if (localEvent == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(localEvent);
-    }
-
-    @GetMapping("/fetchEvents")
-    public ResponseEntity<List<Event>> fetchEvents() {
-        List<Event> events = eventService.fetchEvents();
-        if (events.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return ResponseEntity.ok(events);
-    }
-    
-    
 }

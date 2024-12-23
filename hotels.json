@@ -1,18 +1,26 @@
 [
   {
+    "id": 1,
+    "name": "Grand Hotel",
+    "location": "Paris, France",
+    "phone": "+33 1 23456789",
+    "email": "contact@grandhotel.com",
+    "rating": 4.5
+  },
+  {
     "id": 2,
-    "name": "3",
-    "location": "Example City",
-    "phone": "+123456789",
-    "email": "example@hotel.com",
+    "name": "Grand Hotel",
+    "location": "Paris, France",
+    "phone": "+33 1 23456789",
+    "email": "contact@grandhotel.com",
     "rating": 4.5
   },
   {
     "id": 3,
-    "name": "hilton",
-    "location": "Example City",
-    "phone": "+123456789",
-    "email": "example@hotel.com",
+    "name": "Grand Hotel",
+    "location": "Paris, France",
+    "phone": "+33 1 23456789",
+    "email": "contact@grandhotel.com",
     "rating": 4.5
   }
 ]

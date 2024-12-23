@@ -12,29 +12,31 @@ import com.sda.travelagency.model.Event;
 
 public class EventStorage {
 
-public static final String FILE_PATH = "hotelevents.json";
+    public static final String FILE_PATH = "events.json";
     public static final ObjectMapper objectMapper = new ObjectMapper();
     public static final List<Event> events = loadEvents();
 
-    public static void addEvent(Event Event) {
-        events.add(Event);
+
+    public static void addEvent(Event event) {
+        events.add(event);
         saveEvents();
     }
 
+   
     public static Event getEventById(long id) {
         return events.stream()
-                    .filter(Event -> Event.getId() == id)
+                    .filter(event -> event.getId() == id)
                     .findFirst()
                     .orElse(null);
     }
+
 
     public static Event getEventByName(String name) {
         return events.stream()
-                    .filter(Event -> (Event.getName() == null ? name == null : Event.getName().equals(name)))
+                    .filter(event -> (event.getName() == null ? name == null : event.getName().equals(name)))
                     .findFirst()
                     .orElse(null);
     }
-
 
     public static List<Event> getAllEvents() {
         return new ArrayList<>(events);
@@ -45,7 +47,7 @@ public static final String FILE_PATH = "hotelevents.json";
             return 0;
         }
         return events.stream()
-                    .mapToInt(Event -> (int) Event.getId())
+                    .mapToInt(Event::getId)
                     .max()
                     .orElse(0);
     }
@@ -71,19 +73,12 @@ public static final String FILE_PATH = "hotelevents.json";
         }
     }
 
-    public static Event getEventsByEventName(String name) {
-
-        Event Event = getEventByName(name);
-        if (Event == null) {
-            return null;
-        }
-        return Event;
-    }
 
     public static List<Event> getEventsByHotelName(String hotelName) {
+
         return events.stream()
-                    .filter(Event -> (Event.getHotelName() == null ? hotelName == null : Event.getHotelName().equals(hotelName)))
-                    .collect(Collectors.toList());
+                .filter(event -> (event.getHotelName() == null ? hotelName == null : event.getHotelName().equals(hotelName)))
+                .collect(Collectors.toList());
     }
 
 
