@@ -1,5 +1,6 @@
 package com.sda.NotificationSubsystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sda.NotificationSubsystem.Commands.Command;
@@ -14,17 +15,19 @@ public class NotificationFacade {
     private NotificationInvoker notificationInvoker;
     private NotificationStatisticManager statsManager;
 
-    public NotificationFacade(NotificationInvoker invoker, NotificationStatisticManager statsManager) {
-        this.notificationInvoker = invoker;
-        this.statsManager = statsManager;
+    public NotificationFacade() {
+        this.statsManager = new NotificationStatisticManager();
+        this.notificationInvoker = new NotificationInvoker(statsManager);
     }
+
+    
+
 
     // Method to send Popup Notification
     public void sendPopupNotification(List<String> placeholders) {
         // Prepare the command to send the popup notification (e.g., reset password or booking)
-        Command popupCommand = new ForgetPasswordCommand(
+        Command popupCommand = new SendNotificationCommand(
                 new SMSTemplate(),
-                new EmailTemplate()
                 new EmailTemplate(),
                 new PopupTemplate(),
                 placeholders
@@ -37,9 +40,9 @@ public class NotificationFacade {
         notificationInvoker.execute();
     }
 
-    public String sendPasswordResetNotification(@RequestBody List<String> placeholders) {
+    public String sendPasswordResetNotification(List<String> placeholders) {
         // Prepare the command to send a password reset notification
-        Command resetPasswordCommand = new ForgetPasswordCommand(
+        Command resetPasswordCommand = new PasswordResetCommand(
                 new SMSTemplate(),
                 new EmailTemplate(),
                 placeholders
@@ -52,6 +55,17 @@ public class NotificationFacade {
         notificationInvoker.execute();
 
         return "Password reset notification sent successfully.";
+    }
+
+    public List<String> getPopupNotificationTypes() {
+
+        List<String> popupNotifications = new ArrayList<>();
+        popupNotifications.add("Password Reset Notification");
+        popupNotifications.add("Booking Confirmation");
+        popupNotifications.add("Promotion Notification");
+        popupNotifications.add("System Update Notification");
+
+        return popupNotifications;
     }
 
     // Method to get statistics

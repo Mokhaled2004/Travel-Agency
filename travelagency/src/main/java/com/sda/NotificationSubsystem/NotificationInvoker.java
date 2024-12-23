@@ -9,8 +9,8 @@ public class NotificationInvoker extends  Publisher {
 
     private Queue<Command> notificationsQueue = new LinkedList<>();
 
-    public NotificationInvoker(Subscriber[] subscribers) {
-        this.subscribers = subscribers;
+    public NotificationInvoker(NotificationStatisticManager statsManager) {
+        this.subscribers = (List<Subscriber>) statsManager;
     }
 
     public void addCommand(Command command) {

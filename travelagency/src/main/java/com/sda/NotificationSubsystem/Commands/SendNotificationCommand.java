@@ -10,10 +10,11 @@ public class SendNotificationCommand implements Command {
     private NotificationTemplate popup;
     private List<String> placeholders;
 
-    public SendNotificationCommand(NotificationTemplate sms, NotificationTemplate email, NotificationTemplate popup) {
+    public SendNotificationCommand(NotificationTemplate sms, NotificationTemplate email, NotificationTemplate popup, List<String> placeholders) {
         this.sms = sms;
         this.email = email;
         this.popup = popup;
+        this.placeholders = placeholders;
     }
 
     @Override

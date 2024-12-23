@@ -81,4 +81,16 @@ public class Hotel {
     }
 
 
+    public boolean bookRoom(RoomType roomType) {
+        for (Room room : rooms) {
+            if (room.getRoomType() == roomType && room.isAvailable()) {
+                room.setAvailable(false);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
+
 }

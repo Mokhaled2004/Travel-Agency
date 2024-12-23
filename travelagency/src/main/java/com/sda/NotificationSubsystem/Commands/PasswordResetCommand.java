@@ -9,9 +9,10 @@ public class PasswordResetCommand implements Command {
     private NotificationTemplate email;
     private List<String> placeholders;
 
-    public PasswordResetCommand(NotificationTemplate sms, NotificationTemplate email) {
+    public PasswordResetCommand(NotificationTemplate sms, NotificationTemplate email, List<String> placeholders) {
         this.sms = sms;
         this.email = email;
+        this.placeholders = placeholders;
     }
 
     @Override

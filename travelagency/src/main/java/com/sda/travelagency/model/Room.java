@@ -1,26 +1,37 @@
 package com.sda.travelagency.model;
+enum RoomType {
+    singleroom,
+    doubleroom,
+    tripleroom
+}
 
-public abstract class Room {
+public class Room {
     protected Long id;
-    protected String type;
     protected double price;
     protected boolean available;
+    RoomType roomType;
 
-
-    public Room(Long id, double price) {
+    public Room(Long id, double price, boolean available, RoomType roomType) {
         this.id = id;
         this.price = price;
-        this.available = true; // By default, rooms are available
+        this.available = available;
+        this.roomType = roomType;
     }
-
-    public abstract String getType();
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public double getPrice() {
         return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public boolean isAvailable() {
@@ -31,13 +42,13 @@ public abstract class Room {
         this.available = available;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "id=" + id +
-                ", type='" + getType() + '\'' +
-                ", price=" + price +
-                ", available=" + available +
-                '}';
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 }
+
+
