@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sda.NotificationSubsystem.NotificationFacade;
 import com.sda.travelagency.model.Hotel;
-import com.sda.travelagency.model.Room;
 import com.sda.travelagency.util.HotelStorage;
-import com.sda.travelagency.model.Room.*;
 
 
 
@@ -81,31 +78,15 @@ public class HotelService {
 
 
     public boolean bookHotelRoom(int hotelId, String roomTypeString) {
-        // Ensure the `RoomType` enum is accessed correctly
-        Room.RoomType roomType;
+        
         Hotel hotel = HotelStorage.getHotelById(hotelId);
     
-        if (hotel == null) {
-            return false; // Hotel not found
-        }
-    
-        try {
-            // Convert the input string to uppercase to match the enum constants
-            roomType = Room.RoomType.valueOf(roomTypeString.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            // Invalid room type string
-            return false;
-        }
-    
-        // Prepare placeholders for notifications
-        List<String> placeholders = List.of(hotel.getName(), roomType.name());
+        List<String> placeholders = List.of(hotel.getName(), roomTypeString);
     
         // Send a popup notification
-        NotificationFacade notificationFacade = new NotificationFacade();
-        notificationFacade.sendPopupNotification(placeholders);
+        
     
-        // Attempt to book the room
-        return hotel.bookRoom(roomType);
+        return hotel.bookRoom(roomTypeString);
     }
     
 

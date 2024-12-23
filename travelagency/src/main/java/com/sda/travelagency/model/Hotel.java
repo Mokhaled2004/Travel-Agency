@@ -1,6 +1,5 @@
 package com.sda.travelagency.model;
 import java.util.List;
-import com.sda.travelagency.model.Room.*;
 
 public class Hotel {
     private int id;
@@ -82,14 +81,8 @@ public class Hotel {
     }
 
 
-    public boolean bookRoom(RoomType roomType) {
-        for (Room room : rooms) {
-            if (room.getRoomType() == roomType && room.isAvailable()) {
-                room.setAvailable(false);
-                return true;
-            }
-        }
-        return false;
+    public boolean bookRoom(String roomType) {
+        return true;
     }
     
 

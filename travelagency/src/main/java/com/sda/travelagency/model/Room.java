@@ -1,19 +1,17 @@
 package com.sda.travelagency.model;
 
 public class Room {
-    public enum RoomType {
-        SINGLE, DOUBLE, SUITE; // Enum values in uppercase
-    }
+
     protected Long id;
     protected double price;
     protected boolean available;
-    RoomType roomType;
+    String String;
 
-    public Room(Long id, double price, boolean available, RoomType roomType) {
+    public Room(Long id, double price, boolean available, String String) {
         this.id = id;
         this.price = price;
         this.available = available;
-        this.roomType = roomType;
+        this.String = String;
     }
 
     public Long getId() {
@@ -40,12 +38,12 @@ public class Room {
         this.available = available;
     }
 
-    public RoomType getRoomType() {
-        return roomType;
+    public String getString() {
+        return String;
     }
 
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
+    public void setString(String String) {
+        this.String = String;
     }
 }
 
