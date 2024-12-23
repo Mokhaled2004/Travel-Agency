@@ -1,5 +1,14 @@
 package com.sda.NotificationSubsystem;
 
+import java.util.List;
+
+import com.sda.NotificationSubsystem.Commands.Command;
+import com.sda.NotificationSubsystem.Commands.PasswordResetCommand;
+import com.sda.NotificationSubsystem.Commands.SendNotificationCommand;
+import com.sda.NotificationSubsystem.Templates.EmailTemplate;
+import com.sda.NotificationSubsystem.Templates.PopupTemplate;
+import com.sda.NotificationSubsystem.Templates.SMSTemplate;
+
 public class NotificationFacade {
 
     private NotificationInvoker invoker;
@@ -13,8 +22,7 @@ public class NotificationFacade {
         // Create the password reset command with the appropriate templates
         Command passwordResetCommand = new PasswordResetCommand(
                 new SMSTemplate(),
-                new EmailTemplate(),
-                new PopupTemplate()
+                new EmailTemplate()
         );
         invoker.addCommand(passwordResetCommand);
         invoker.execute();

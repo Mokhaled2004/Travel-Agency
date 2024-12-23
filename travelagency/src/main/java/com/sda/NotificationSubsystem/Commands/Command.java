@@ -1,4 +1,4 @@
-package com.sda.NotificationSubsystem.command;
+package com.sda.NotificationSubsystem.Commands;
 
 import java.util.List;
 

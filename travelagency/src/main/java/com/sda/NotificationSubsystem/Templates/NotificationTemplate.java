@@ -7,13 +7,12 @@ public abstract class NotificationTemplate {
     protected int templateId;
     protected boolean recipient;
     protected String language;
-    protected int numberOfUsages;
+    protected static int numberOfUsages = 0;
 
     public NotificationTemplate(int templateId, boolean recipient, String language) {
         this.templateId = templateId;
         this.recipient = recipient;
         this.language = language;
-        this.numberOfUsages = 0; // Initializes usage count to 0
     }
 
     public int getTemplateId() {

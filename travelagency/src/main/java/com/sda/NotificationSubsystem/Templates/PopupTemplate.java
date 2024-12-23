@@ -6,6 +6,11 @@ public class PopupTemplate extends NotificationTemplate {
         super(templateId, recipient, language);
     }
 
+    public PopupTemplate() {
+        super(0, false, "en");
+        this.incrementUsage();
+    }
+
     @Override
     public String prepareHeader() {
         return "Popup Header";

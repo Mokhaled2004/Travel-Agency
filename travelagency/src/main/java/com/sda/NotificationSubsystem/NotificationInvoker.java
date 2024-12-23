@@ -1,8 +1,11 @@
 package com.sda.NotificationSubsystem;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
-public class NotificationInvoker implements Publisher {
+import com.sda.NotificationSubsystem.Commands.Command;
+
+public class NotificationInvoker extends  Publisher {
 
     private Queue<Command> notificationsQueue = new LinkedList<>();
     private Subscriber[] subscribers;
@@ -15,7 +18,6 @@ public class NotificationInvoker implements Publisher {
         notificationsQueue.add(command);
     }
 
-    @Override
     public void execute() {
         while (!notificationsQueue.isEmpty()) {
             Command command = notificationsQueue.poll();
@@ -27,7 +29,7 @@ public class NotificationInvoker implements Publisher {
     @Override
     public void notifySubscribers() {
         for (Subscriber subscriber : subscribers) {
-            subscriber.update("Notification executed");
+            subscriber.update();
         }
     }
 }

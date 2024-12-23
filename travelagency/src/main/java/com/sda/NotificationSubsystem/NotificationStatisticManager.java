@@ -16,9 +16,9 @@ public class NotificationStatisticManager implements Subscriber {
     }
 
     @Override
-    public void update(String context) {
+    public void update() {
         successfulNotification++;
-        System.out.println("Updated notification statistics: " + context);
+        System.out.println("Updated notification statistics" );
     }
 
     public int getSuccessfulNotification() {

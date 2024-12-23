@@ -13,9 +13,9 @@ public class Publisher {
     }
 
     // Notify all subscribers
-    public void notifySubscribers(String message) {
+    public void notifySubscribers() {
         for (Subscriber subscriber : subscribers) {
-            subscriber.update(message);
+            subscriber.update();
         }
     }
 }

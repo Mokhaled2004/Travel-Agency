@@ -1,4 +1,8 @@
-package com.sda.NotificationSubsystem.command;
+package com.sda.NotificationSubsystem.Commands;
+
+import java.util.List;
+
+import com.sda.NotificationSubsystem.Templates.NotificationTemplate;
 
 public class PasswordResetCommand implements Command {
     private NotificationTemplate sms;
@@ -26,4 +30,5 @@ public class PasswordResetCommand implements Command {
         sms.incrementUsage();
         email.incrementUsage();
     }
+
 }

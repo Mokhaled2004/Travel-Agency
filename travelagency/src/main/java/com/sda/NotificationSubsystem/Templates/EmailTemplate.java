@@ -6,6 +6,11 @@ public class EmailTemplate extends NotificationTemplate {
         super(templateId, recipient, language);
     }
 
+    public EmailTemplate() {
+        super(0, false, "EN");
+        this.incrementUsage();
+    }
+
     @Override
     public String prepareHeader() {
         return "Email Header";

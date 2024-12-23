@@ -1,4 +1,8 @@
-package com.sda.NotificationSubsystem.command;
+package com.sda.NotificationSubsystem.Commands;
+
+import java.util.List;
+
+import com.sda.NotificationSubsystem.Templates.NotificationTemplate;
 
 public class SendNotificationCommand implements Command {
     private NotificationTemplate sms;
