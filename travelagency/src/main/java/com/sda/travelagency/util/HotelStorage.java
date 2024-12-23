@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sda.travelagency.model.Events.HotelEvents;
 import com.sda.travelagency.model.Hotel;
 
 public class HotelStorage {
@@ -70,14 +69,7 @@ public class HotelStorage {
         }
     }
 
-    public static List<HotelEvents> getEventsByHotelName(String name) {
 
-        Hotel hotel = getHotelByName(name);
-        if (hotel == null) {
-            return new ArrayList<>();
-        }
-        return hotel.getEvents();
-    }
 
     
 }

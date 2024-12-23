@@ -1,7 +1,6 @@
 package com.sda.travelagency.service;
 
-import com.sda.travelagency.model.payment.PaymentStrategy;
 
 public interface Ibook {
-    boolean book(int userid, PaymentStrategy paymentstrategy);
+    boolean book(int id,String type);
 }

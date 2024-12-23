@@ -81,4 +81,10 @@ public class Hotel {
     }
 
 
+    public boolean bookRoom(String roomType) {
+        return true;
+    }
+    
+
+
 }

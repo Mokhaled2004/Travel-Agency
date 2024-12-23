@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Publisher {
 
-    private List<Subscriber> subscribers = new ArrayList<>();
+    protected List<Subscriber> subscribers = new ArrayList<>();
 
     // Add a subscriber
     public void addSubscriber(Subscriber subscriber) {

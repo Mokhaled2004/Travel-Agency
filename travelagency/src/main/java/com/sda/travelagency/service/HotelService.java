@@ -5,17 +5,20 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sda.travelagency.model.Events.HotelEvents;
+import com.sda.NotificationSubsystem.NotificationFacade;
 import com.sda.travelagency.model.Hotel;
 import com.sda.travelagency.util.HotelStorage;
+
+
+
 
 @Service
 public class HotelService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    NotificationFacade notificationFacade = new NotificationFacade();
 
     public HotelService() {
-        // Ensure hotels are loaded at initialization
         HotelStorage.loadHotels();
     }
 
@@ -60,20 +63,10 @@ public class HotelService {
         }
         return removed;
     }
-
-    public boolean book() {
-        // Logic for booking a hotel (Placeholder for now)
-        return true;
-    }
-
-    public boolean view() {
-        // Logic for viewing hotels (Placeholder for now)
-        return true;
-    }
-
     public Hotel search(String name) {
         return HotelStorage.getHotelByName(name);
     }
+
 
     // Retrieve a hotel by ID from the list
     public Hotel getHotelById(long id) {
@@ -84,7 +77,23 @@ public class HotelService {
         return HotelStorage.getAllHotels();
     }
 
-    public List<HotelEvents> getEventsByHotelName(String name) {
-        return HotelStorage.getEventsByHotelName(name);
+
+
+    public boolean bookHotelRoom(int hotelId, String roomTypeString) {
+        
+        Hotel hotel = HotelStorage.getHotelById(hotelId);
+    
+        List<String> placeholders = List.of(hotel.getName(), roomTypeString);
+    
+        
+        notificationFacade.sendPopupNotification(placeholders);
+    
+        return hotel.bookRoom(roomTypeString);
     }
+    
+
+
+
+
+
 }
