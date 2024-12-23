@@ -46,6 +46,7 @@ public class EventService {
         existingEvent.setDate(event.getDate());
         existingEvent.setAvailableTickets(event.isAvailableTickets());
         existingEvent.setTicketPrice(event.getTicketPrice());
+        existingEvent.setHotelName(event.getHotelName());
 
         EventStorage.saveEvents();
         return existingEvent;

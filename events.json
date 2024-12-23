@@ -1,57 +1,33 @@
 [ {
-  "id" : 1,
-  "name" : "Event1",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
-}, {
-  "id" : 2,
-  "name" : "Event1",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
-}, {
-  "id" : 3,
-  "name" : "Event1",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
-}, {
   "id" : 4,
-  "name" : "Event1",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
+  "name" : "Tech Conference",
+  "address" : "456 Tech Ave, San Francisco, CA",
+  "date" : "2024-12-30",
   "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
+  "ticketPrice" : 120,
+  "hotelName" : "Techno Bay Hotel"
 }, {
   "id" : 5,
-  "name" : "Event1",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
+  "name" : "Art Exhibition",
+  "address" : "789 Art Blvd, Los Angeles, CA",
+  "date" : "2025-01-10",
+  "availableTickets" : true,
+  "ticketPrice" : 80,
+  "hotelName" : "Artistic Haven Hotel"
 }, {
   "id" : 6,
-  "name" : "Event2",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
+  "name" : "Updated Concert",
+  "address" : "456 Updated St, Los Angeles, CA",
+  "date" : "2025-01-01",
+  "availableTickets" : true,
+  "ticketPrice" : 1001,
+  "hotelName" : "Updated Music Hotel"
 }, {
   "id" : 7,
-  "name" : "Event2",
-  "address" : "ExampleAddress",
-  "date" : "2024-12-23",
-  "availableTickets" : false,
-  "ticketPrice" : 0,
-  "hotelName" : null
+  "name" : "Updated Concert",
+  "address" : "456 Updated St, Los Angeles, CA",
+  "date" : "2025-01-01",
+  "availableTickets" : true,
+  "ticketPrice" : 1001,
+  "hotelName" : "Updated Music Hotel"
 } ]
