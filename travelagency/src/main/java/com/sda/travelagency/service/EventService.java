@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.sda.travelagency.model.Event;
 import com.sda.travelagency.util.EventStorage;
+import static com.sda.travelagency.util.EventStorage.saveEvents;
+import static com.sda.travelagency.util.EventStorage.events;
+
+
 
 @Service
 public class EventService {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public EventService() {
         
@@ -70,5 +72,9 @@ public class EventService {
 
     public List<Event> getAllEvents() {
         return EventStorage.getAllEvents();
+    }
+
+    private int getLastEventId() {
+        return EventStorage.getLastEventId();  
     }
 }
