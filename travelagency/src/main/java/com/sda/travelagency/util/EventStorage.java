@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.travelagency.model.Event;
@@ -11,7 +12,7 @@ import com.sda.travelagency.model.Event;
 
 public class EventStorage {
 
-public static final String FILE_PATH = "events.json";
+public static final String FILE_PATH = "hotelevents.json";
     public static final ObjectMapper objectMapper = new ObjectMapper();
     public static final List<Event> events = loadEvents();
 
@@ -77,6 +78,12 @@ public static final String FILE_PATH = "events.json";
             return null;
         }
         return Event;
+    }
+
+    public static List<Event> getEventsByHotelName(String hotelName) {
+        return events.stream()
+                    .filter(Event -> (Event.getHotelName() == null ? hotelName == null : Event.getHotelName().equals(hotelName)))
+                    .collect(Collectors.toList());
     }
 
 

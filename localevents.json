@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Nature Hike",
+    "address": "Forest Trail, Green Park",
+    "date": "2024-12-30",
+    "availableTickets": true,
+    "ticketPrice": 50,
+    "localGuideName": "John Doe",
+    "isOutdoor": true
+  },
+  {
+    "id": 2,
+    "name": "City Walking Tour",
+    "address": "Downtown City Center",
+    "date": "2024-12-28",
+    "availableTickets": false,
+    "ticketPrice": 30,
+    "localGuideName": "Emily Smith",
+    "isOutdoor": true
+  },
+  {
+    "id": 3,
+    "name": "Museum Guided Tour",
+    "address": "Historical Museum",
+    "date": "2024-12-25",
+    "availableTickets": true,
+    "ticketPrice": 20,
+    "localGuideName": "Michael Brown",
+    "isOutdoor": false
+  },
+  {
+    "id": 4,
+    "name": "Mountain Climbing",
+    "address": "Rocky Peaks",
+    "date": "2024-12-29",
+    "availableTickets": true,
+    "ticketPrice": 100,
+    "localGuideName": "Sarah Johnson",
+    "isOutdoor": true
+  },
+  {
+    "id": 5,
+    "name": "Beach Sunset Yoga",
+    "address": "Sunny Beach",
+    "date": "2024-12-31",
+    "availableTickets": false,
+    "ticketPrice": 40,
+    "localGuideName": "Sophia Lee",
+    "isOutdoor": true
+  },
+  {
+    "id": 6,
+    "name": "Food Tasting Tour",
+    "address": "Gourmet District",
+    "date": "2024-12-26",
+    "availableTickets": true,
+    "ticketPrice": 60,
+    "localGuideName": "James Wilson",
+    "isOutdoor": false
+  },
+  {
+    "id": 7,
+    "name": "Wildlife Safari",
+    "address": "National Park Reserve",
+    "date": "2024-12-27",
+    "availableTickets": true,
+    "ticketPrice": 80,
+    "localGuideName": "Anna Martinez",
+    "isOutdoor": true
+  },
+  {
+    "id": 8,
+    "name": "Photography Workshop",
+    "address": "Cityscape Viewpoint",
+    "date": "2024-12-24",
+    "availableTickets": false,
+    "ticketPrice": 70,
+    "localGuideName": "David Anderson",
+    "isOutdoor": false
+  },
+  {
+    "id": 9,
+    "name": "River Rafting",
+    "address": "Blue River Rapids",
+    "date": "2024-12-23",
+    "availableTickets": true,
+    "ticketPrice": 120,
+    "localGuideName": "Laura White",
+    "isOutdoor": true
+  },
+  {
+    "id": 10,
+    "name": "Stargazing Night",
+    "address": "Clear Sky Observatory",
+    "date": "2024-12-22",
+    "availableTickets": false,
+    "ticketPrice": 25,
+    "localGuideName": "Chris Walker",
+    "isOutdoor": true
+  }
+]
