@@ -8,7 +8,6 @@ import com.sda.NotificationSubsystem.Commands.Command;
 public class NotificationInvoker extends  Publisher {
 
     private Queue<Command> notificationsQueue = new LinkedList<>();
-    private Subscriber[] subscribers;
 
     public NotificationInvoker(Subscriber[] subscribers) {
         this.subscribers = subscribers;
