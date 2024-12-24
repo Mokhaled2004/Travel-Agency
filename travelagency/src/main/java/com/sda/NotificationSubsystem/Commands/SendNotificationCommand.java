@@ -21,19 +21,23 @@ public class SendNotificationCommand implements Command {
     public void execute(List<String> placeholders) {
         this.placeholders = placeholders;
 
-        // Generate notifications using the templates
-        String smsContent = sms.generateTemplate(placeholders);
-        String emailContent = email.generateTemplate(placeholders);
-        String popupContent = popup.generateTemplate(placeholders);
+        if (popup != null) {
+            String popupContent = popup.generateTemplate(placeholders);
+            System.out.println("Sending Popup: " + popupContent);
+            popup.incrementUsage();
+        }
 
-        // Simulate sending notifications (logging in this case)
-        System.out.println("Sending SMS: " + smsContent);
-        System.out.println("Sending Email: " + emailContent);
-        System.out.println("Sending Popup: " + popupContent);
+        if (sms != null) {
+            String smsContent = sms.generateTemplate(placeholders);
+            System.out.println("Sending SMS: " + smsContent);
+            sms.incrementUsage();
+        }
 
-        // Increment the usage count for each template
-        sms.incrementUsage();
-        email.incrementUsage();
-        popup.incrementUsage();
+        if (email != null) {
+            String emailContent = email.generateTemplate(placeholders);
+            System.out.println("Sending Email: " + emailContent);
+            email.incrementUsage();
+        }
     }
+
 }

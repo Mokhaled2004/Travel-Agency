@@ -16,7 +16,8 @@ import com.sda.travelagency.util.HotelStorage;
 public class HotelService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    NotificationFacade notificationFacade = new NotificationFacade();
+    @Autowired
+    private NotificationFacade notificationFacade;
 
     public HotelService() {
         HotelStorage.loadHotels();
@@ -80,20 +81,19 @@ public class HotelService {
 
 
     public boolean bookHotelRoom(int hotelId, String roomTypeString) {
-        
         Hotel hotel = HotelStorage.getHotelById(hotelId);
-    
+
+        if (hotel == null) {
+            throw new IllegalArgumentException("Hotel not found");
+        }
+
         List<String> placeholders = List.of(hotel.getName(), roomTypeString);
-    
-        
+
+        // Send notification through the facade
         notificationFacade.sendPopupNotification(placeholders);
-    
+
         return hotel.bookRoom(roomTypeString);
     }
-    
-
-
-
 
 
 }
