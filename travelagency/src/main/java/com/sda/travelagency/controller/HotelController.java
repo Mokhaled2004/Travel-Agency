@@ -87,9 +87,11 @@ public class HotelController {
     @PostMapping("/bookRoom/{hotelId}/{roomType}")
     public ResponseEntity<String> bookHotelRoom(@PathVariable int hotelId, @PathVariable String roomType) {
         boolean booked = hotelService.bookHotelRoom(hotelId, roomType);
+
         if (booked) {
             return ResponseEntity.ok("Room booked successfully");
         }
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to book room");
     }
 

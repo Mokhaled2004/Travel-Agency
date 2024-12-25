@@ -2,10 +2,10 @@ package com.sda.travelagency.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sda.NotificationSubsystem.NotificationFacade;
 import com.sda.travelagency.model.Hotel;
 import com.sda.travelagency.util.HotelStorage;
 
@@ -17,7 +17,7 @@ public class HotelService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    private NotificationFacade notificationFacade;
+    private NotificationService notificationService;
 
     public HotelService() {
         HotelStorage.loadHotels();
@@ -87,13 +87,19 @@ public class HotelService {
             throw new IllegalArgumentException("Hotel not found");
         }
 
-        List<String> placeholders = List.of(hotel.getName(), roomTypeString);
+        boolean bookingSuccessful = hotel.bookRoom(roomTypeString);
 
-        // Send notification through the facade
-        notificationFacade.sendPopupNotification(placeholders);
+        if (bookingSuccessful) {
+            // Compose the notification message
+            String message = "Booking successful for Hotel: " + hotel.getName() + ", Room Type: " + roomTypeString;
 
-        return hotel.bookRoom(roomTypeString);
+            // Send the notification
+            notificationService.sendNotification(message);
+        } else {
+            System.out.println("Booking failed for Hotel: " + hotel.getName() + ", Room Type: " + roomTypeString);
+        }
+
+        return bookingSuccessful;
     }
-
 
 }

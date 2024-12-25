@@ -5,4 +5,11 @@
   "phone" : "+33 1 23456789",
   "email" : "contact@grandhotel.com",
   "rating" : 4.5
+}, {
+  "id" : 2,
+  "name" : "Grand Hotel",
+  "location" : "Paris, France",
+  "phone" : "+33 1 23456789",
+  "email" : "contact@grandhotel.com",
+  "rating" : 4.5
 } ]
