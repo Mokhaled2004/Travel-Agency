@@ -2,144 +2,164 @@
 
 # Travel Agency System
 
-## Project Overview
+## Overview
+This project is designed as a backend system for a **Travel Agency** located in Cairo, focusing on core features that help users interact with hotel and event bookings, while providing a notification service for various actions like booking confirmations, password resets, and event reminders.
 
-The **Travel Agency System** is a backend application designed to simulate an online travel agency for booking hotel rooms and event tickets. It interacts with the frontend through APIs and offers functionality for booking, searching, and managing reservations. This project focuses on the **backend** of the system and is a component of a larger travel management software.
+The system operates in two parts:
+1. **Travel Agency System** running on **Port 8081**: Handles hotel bookings, event ticket reservations, user account management, and dashboard features.
+2. **Notification System** running on **Port 8080**: Sends notifications such as booking confirmations, event reminders, and promotional offers to users.
 
-### Key Features:
+## Features
 
-- **Hotel Booking**: Users can view, search, and book different types of hotel rooms (single, double, family).
-- **Event Ticket Booking**: Users can search and book tickets for local events.
-- **User Accounts**: Users must create an account to book hotels or event tickets.
-- **Booking Dashboard**: Users have access to a dashboard that displays and allows them to print their bookings.
-- **Event Recommendations**: Based on hotel bookings, users are recommended nearby events that align with their travel dates.
-- **Notification System**: A notification module alerts users of their bookings, nearby events, offers, and promotions.
-- **Event API Integration**: Event data is retrieved via an external API for local event details.
+### 1. **Hotel Room Booking**
+   - Users can search and book hotel rooms of various types: Single, Double, or Family.
+   - Users must create an account to proceed with the booking.
+   - After booking a room, users will receive a confirmation notification via the Notification System.
+
+### 2. **Event Ticket Booking**
+   - Users can view and book tickets for local events happening in Cairo.
+   - Event details are fetched from an external events API.
+   - Notifications will be sent to users upon booking an event.
+
+### 3. **User Dashboard**
+   - Users can view and print all their bookings (hotel and event) from the dashboard.
+   - Users will receive recommendations for events in the same location as their hotel booking during their stay.
+
+### 4. **Event Recommendations**
+   - After a hotel booking, users will be recommended events happening in the destination city within the same time frame of their stay.
+
+### 5. **Notification System**
+   - The notification system provides updates to users about their bookings and other relevant activities.
+   - Notifications include event reminders, booking confirmations, and promotional offers.
+   - Notifications are sent through various channels like email and SMS.
+
+### 6. **Backend Communication**
+   - The backend communicates with hotel providers and the events API to fetch real-time data and fulfill booking requests.
+   - All requests and responses are handled via RESTful APIs.
+
+### 7. **Notification Module**
+   - The notification module handles templates for various notification types (confirmation emails, booking SMS, etc.).
+   - Notifications are queued and sent asynchronously, avoiding delays for the end user.
+   - The system keeps track of successfully and unsuccessfully sent notifications.
+
+### 8. **Statistics & Reporting**
+   - The system tracks notification statistics such as the number of successfully sent notifications, failure reasons, and most requested templates.
+   
+---
+
+## System Architecture
+
+The system follows a modular architecture with clear separation of concerns between the Travel Agency and Notification services:
+
+1. **Travel Agency API (Port 8081)**
+   - Handles requests related to hotel bookings, event bookings, user accounts, and event recommendations.
+   
+2. **Notification API (Port 8080)**
+   - Handles notification sending, template management, queuing, and sending of notifications to users.
+
+### Key Classes & Controllers:
+- **ReceiverController** (Notification System): Handles incoming requests for sending notifications.
+- **HotelController** (Travel Agency System): Manages hotel bookings and event tickets.
+- **NotificationService** (Notification System): Handles sending notifications, template management, and queuing.
   
-The system includes a **notification module** to handle multiple types of notifications (email, SMS) for various actions such as confirmations, password resets, and booking updates.
+---
 
-## Architecture
+## Setup & Installation
 
-### **Backend Services**
-- **Travel Agency Backend**: Handles hotel bookings, event ticket purchases, and user data.
-  - Runs on port `8081`
-  
-- **Notification Service**: A dedicated service for sending notifications to users (e.g., email confirmations, SMS updates).
-  - Runs on port `8080`
+### Prerequisites
+Ensure that you have the following installed:
+- **Java 11** or higher
+- **Maven** (for building the project)
+- **Postman** (for testing the APIs)
 
-### **Features in Detail**
-1. **Hotel Booking**:
-   - Search and book rooms (single, double, family).
-   - Integration with hotel providers or a local database for room availability.
-   
-2. **Event Booking**:
-   - Search and book tickets for local events.
-   - Event details are consumed from an external events API.
+### Steps to Run the Project:
 
-3. **User Dashboard**:
-   - View, search, and print booking details.
-   - Event recommendations based on hotel bookings and user location.
-
-4. **Notification System**:
-   - **Notification Templates**: Manage different templates for notifications (email, SMS).
-   - **Queuing System**: Notifications are queued for asynchronous delivery to avoid blocking user interactions.
-   - **Sending/Queue Handling**: Actual notification sending from the queue.
-   - **Notification Statistics**: Provides insights into sent/failed notifications, including failure reasons, most notified users, and most used templates.
-
-### **System Workflow**
-
-1. **User Registration**:
-   - Users must register to book hotels or events.
-   
-2. **Hotel Booking**:
-   - Users search and book hotel rooms via the API.
-   
-3. **Event Booking**:
-   - Upon booking a hotel, users receive event recommendations for local events during their stay.
-   
-4. **Notification System**:
-   - The notification service handles email and SMS alerts, including booking confirmations and event reminders.
-   - The system queues notifications to prevent delay in user requests.
-
-## Installation
-
-### Requirements:
-- **Node.js** for backend and notification services.
-- **MongoDB** or a similar database for storing user and booking data.
-- **External Event API** (for fetching event data).
-- **Email/SMS Service** (for sending notifications).
-
-### Steps to Install:
-
-1. **Clone the repository**:
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Mokhaled2004/Travel-Agency.git
-   cd Travel-Agency
+   git clone https://github.com/your-repo/travel-agency.git
+   cd travel-agency
    ```
 
-2. **Install dependencies**:
-   Navigate to the backend directory and install the necessary Node.js dependencies:
-   ```bash
-   npm install
-   ```
-
-3. **Set up the Notification Service**:
-   - Navigate to the `notification-service` directory and install dependencies:
+2. **Set up the Travel Agency System:**
+   - Navigate to the `travelagency` directory.
+   - Build and run the application on port **8081**:
      ```bash
-     cd notification-service
-     npm install
+     mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8081"
      ```
 
-4. **Configure environment variables**:
-   - Create a `.env` file in the root directory and set the necessary environment variables (e.g., database connection string, external API keys, email/SMS service credentials).
+3. **Set up the Notification System:**
+   - Navigate to the `notification-system` directory.
+   - Build and run the application on port **8080**:
+     ```bash
+     mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8080"
+     ```
 
-5. **Start the Backend Service**:
-   ```bash
-   npm start
-   ```
-   The backend will run on port `8081`.
+4. **Access the APIs**:
+   - The Travel Agency API will be accessible on:  
+     `http://localhost:8081`
+   - The Notification API will be accessible on:  
+     `http://localhost:8080`
 
-6. **Start the Notification Service**:
-   ```bash
-   npm start
-   ```
-   The notification service will run on port `8080`.
+---
 
 ## API Endpoints
 
-### **Travel Agency Backend (Port 8081)**
+### **Travel Agency API (Port 8081)**
 
-- **GET /hotels**: Retrieve available hotel rooms.
-- **POST /book-hotel**: Book a hotel room.
-- **GET /events**: Fetch available local events from the external events API.
-- **POST /book-event**: Book a ticket for an event.
-- **POST /user/register**: Register a new user.
+- **Book Hotel Room**  
+  **URL:** `/api/hotel/bookRoom/{hotelId}/{roomType}`  
+  **Method:** `POST`  
+  **Parameters:**
+  - `hotelId`: ID of the hotel.
+  - `roomType`: Type of room (e.g., Single, Double, Family).  
 
-### **Notification Service (Port 8080)**
+- **Book Event Ticket**  
+  **URL:** `/api/event/bookTicket/{eventId}`  
+  **Method:** `POST`  
+  **Parameters:**
+  - `eventId`: ID of the event to be booked.
 
-- **POST /send-notification**: Sends a notification (email/SMS) to a user.
-- **GET /notification-stats**: Retrieve notification statistics (successful/failed sends, most notified users, etc.).
+- **User Dashboard**  
+  **URL:** `/api/dashboard`  
+  **Method:** `GET`  
+  **Returns:** A list of all bookings made by the user.
 
-## Design for Reuse - Notification Module
+### **Notification API (Port 8080)**
 
-The notification system is designed for reuse across multiple applications. It includes:
+- **Send Notification**  
+  **URL:** `/api/notification/send-notification`  
+  **Method:** `GET`  
+  **Parameters:**
+  - `message`: The message content to be sent as a notification.
 
-- **Notification Template Management**: Allows defining various notification templates (e.g., booking confirmations, event reminders) with placeholders for dynamic data.
-- **Notification Queuing**: Queues notifications for asynchronous processing to avoid blocking the main application.
-- **Notification Sending/Queue Handling**: De-queues and sends notifications.
-- **Statistics**: Tracks sent and failed notifications, including the failure reason, most used templates, and most notified users.
+---
 
-## Technologies Used
+## Testing
 
-- **Node.js**: Backend and notification service implementation.
-- **Express.js**: API framework for building backend services.
-- **MongoDB**: Database for storing user and booking information.
-- **External Event API**: Fetching event data for local events.
-- **Email/SMS Service**: For sending notifications.
+To test the APIs, use **Postman** or any API testing tool:
 
-## Contributing
+1. **Testing Hotel Booking:**
+   - **Method:** `POST`
+   - **URL:** `http://localhost:8081/api/hotel/bookRoom/{hotelId}/{roomType}`
+   
+2. **Testing Event Booking:**
+   - **Method:** `POST`
+   - **URL:** `http://localhost:8081/api/event/bookTicket/{eventId}`
+   
+3. **Testing Notification:**
+   - **Method:** `GET`
+   - **URL:** `http://localhost:8080/api/notification/send-notification?message=Booking%20confirmed%20for%20event%20XYZ`
 
-If you’d like to contribute to this project, feel free to fork the repository, create a branch, and submit a pull request. Please make sure to follow the coding conventions and include tests where applicable.
+---
+
+## Future Enhancements
+
+1. **User Authentication & Authorization**: Implement JWT-based authentication for secure access to the system.
+2. **Database Integration**: Store user bookings, hotel details, and event information in a relational database (e.g., MySQL or PostgreSQL).
+3. **Event API Integration**: Fetch event details from a live external event API (e.g., Eventbrite).
+4. **More Notification Channels**: Expand notifications to include push notifications or other communication channels.
+
+---
 
 ## License
 
