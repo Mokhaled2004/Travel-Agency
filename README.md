@@ -106,31 +106,117 @@ Ensure that you have the following installed:
 
 ### **Travel Agency API (Port 8081)**
 
-- **Book Hotel Room**  
-  **URL:** `/api/hotel/bookRoom/{hotelId}/{roomType}`  
-  **Method:** `POST`  
-  **Parameters:**
-  - `hotelId`: ID of the hotel.
-  - `roomType`: Type of room (e.g., Single, Double, Family).  
+#### 1. **Add Hotel**
+   - **URL:** `/HotelController/addHotel`
+   - **Method:** `POST`
+   - **Description:** Adds a new hotel to the system.
+   - **Request Body:**
+     ```json
+     {
+       "name": "Hotel Name",
+       "location": "Cairo",
+       "rooms": [
+         {
+           "type": "Single",
+           "price": 100
+         },
+         {
+           "type": "Double",
+           "price": 150
+         }
+       ]
+     }
+     ```
+   - **Response:**
+     - Success: `201 Created`
+     - Failure: `400 Bad Request`
+  
+#### 2. **Get All Hotels**
+   - **URL:** `/HotelController/getAll`
+   - **Method:** `GET`
+   - **Description:** Retrieves a list of all hotels.
+   - **Response:**
+     - Success: `200 OK` with a list of hotels.
+     - Failure: `404 Not Found` if no hotels are available.
 
-- **Book Event Ticket**  
-  **URL:** `/api/event/bookTicket/{eventId}`  
-  **Method:** `POST`  
-  **Parameters:**
-  - `eventId`: ID of the event to be booked.
+#### 3. **Update Hotel**
+   - **URL:** `/HotelController/update/{id}`
+   - **Method:** `PUT`
+   - **Description:** Updates the details of a specific hotel.
+   - **Path Parameter:**
+     - `id`: The unique ID of the hotel to be updated.
+   - **Request Body:**
+     ```json
+     {
+       "name": "Updated Hotel Name",
+       "location": "Updated Location",
+       "rooms": [
+         {
+           "type": "Family",
+           "price": 200
+         }
+       ]
+     }
+     ```
+   - **Response:**
+     - Success: `200 OK` with the updated hotel data.
+     - Failure: `404 Not Found` if the hotel is not found.
 
-- **User Dashboard**  
-  **URL:** `/api/dashboard`  
-  **Method:** `GET`  
-  **Returns:** A list of all bookings made by the user.
+#### 4. **Delete Hotel**
+   - **URL:** `/HotelController/delete/{id}`
+   - **Method:** `DELETE`
+   - **Description:** Deletes a specific hotel.
+   - **Path Parameter:**
+     - `id`: The unique ID of the hotel to be deleted.
+   - **Response:**
+     - Success: `200 OK` if hotel is deleted.
+     - Failure: `404 Not Found` if hotel does not exist.
+     - Failure: `500 Internal Server Error` if deletion fails.
+
+#### 5. **Get Hotel by ID**
+   - **URL:** `/HotelController/get/{id}`
+   - **Method:** `GET`
+   - **Description:** Retrieves the details of a specific hotel by its ID.
+   - **Path Parameter:**
+     - `id`: The unique ID of the hotel.
+   - **Response:**
+     - Success: `200 OK` with hotel details.
+     - Failure: `404 Not Found` if hotel does not exist.
+
+#### 6. **Search Hotel by Name**
+   - **URL:** `/HotelController/searchByName/{name}`
+   - **Method:** `GET`
+   - **Description:** Searches for a hotel by name.
+   - **Path Parameter:**
+     - `name`: The name of the hotel to search for.
+   - **Response:**
+     - Success: `200 OK` with hotel data.
+     - Failure: `404 Not Found` if no hotel is found.
+
+#### 7. **Book Hotel Room**
+   - **URL:** `/HotelController/bookRoom/{hotelId}/{roomType}`
+   - **Method:** `POST`
+   - **Description:** Books a room at a specified hotel.
+   - **Path Parameters:**
+     - `hotelId`: The ID of the hotel.
+     - `roomType`: The type of room (e.g., Single, Double, Family).
+   - **Response:**
+     - Success: `200 OK` if room is booked.
+     - Failure: `500 Internal Server Error` if the booking fails.
+
+---
 
 ### **Notification API (Port 8080)**
 
-- **Send Notification**  
-  **URL:** `/api/notification/send-notification`  
-  **Method:** `GET`  
-  **Parameters:**
-  - `message`: The message content to be sent as a notification.
+#### 1. **Send Notification**
+   - **URL:** `/api/notification/send-notification`
+   - **Method:** `GET`
+   - **Description:** Sends a notification to users (e.g., booking confirmations, event reminders).
+   - **Parameters:**
+     - `message`: The message content to be sent as a notification.
+   - **Response:**
+     - Success: `200 OK`
+     - Failure: `400 Bad Request` if the message is invalid.
 
 ---
 
@@ -140,7 +226,7 @@ To test the APIs, use **Postman** or any API testing tool:
 
 1. **Testing Hotel Booking:**
    - **Method:** `POST`
-   - **URL:** `http://localhost:8081/api/hotel/bookRoom/{hotelId}/{roomType}`
+   - **URL:** `http://localhost:8081/HotelController/bookRoom/{hotelId}/{roomType}`
    
 2. **Testing Event Booking:**
    - **Method:** `POST`
@@ -154,14 +240,14 @@ To test the APIs, use **Postman** or any API testing tool:
 
 ## Future Enhancements
 
-1. **User Authentication & Authorization**: Implement JWT-based authentication for secure access to the system.
-2. **Database Integration**: Store user bookings, hotel details, and event information in a relational database (e.g., MySQL or PostgreSQL).
-3. **Event API Integration**: Fetch event details from a live external event API (e.g., Eventbrite).
-4. **More Notification Channels**: Expand notifications to include push notifications or other communication channels.
+1. **User Authentication & Authorization**: Implement JWT-based authentication for secure access to the system
+
+.
+2. **Payment Gateway Integration**: Integrate with payment providers to allow users to pay for bookings online.
+3. **Mobile App Support**: Develop a mobile version of the platform for easier access and management of bookings.
 
 ---
 
-## License
-
+### License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
